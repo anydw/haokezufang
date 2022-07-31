@@ -1,0 +1,30 @@
+{
+  "id": "3554201",
+  "name": "好客租房",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1718353",
+      "name": "下箭头",
+      "font_class": "xiajiantou",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "4111368",
+      "name": "map",
+      "font_class": "map1",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "1251218",
+      "name": "map",
+      "font_class": "map",
+      "unicode": "e65a",
+      "unicode_decimal": 58970
+    }
+  ]
+}
