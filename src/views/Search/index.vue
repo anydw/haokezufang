@@ -2,57 +2,43 @@
   <div>
     <!-- 搜索框 -->
     <div>
-      <van-search
-        v-model="values"
-        show-action
-        placeholder="请输入搜索关键词"
-        @search="onSearch"
-        van-search
-      >
+      <!-- <van-icon name="arrow-left" /> -->
+      <van-search v-model="values" show-action placeholder="请输入搜索关键词">
         <template #action>
-          <div @click="onSearchRight"><i class="iconfont icon-map"></i></div>
+          <div><i class="iconfont icon-map"></i></div>
         </template>
         <!-- <template #label>
         <div @click="onSearch" class="iconfont icon-zuojiantou"></div>
       </template> -->
       </van-search>
     </div>
-    <div class="bt">
-
-    <van-dropdown-menu>
-    <van-dropdown-item v-model="value" :options="option" />
-    <van-dropdown-item v-model="value" :options="option1" />
-    <van-dropdown-item v-model="value" :options="option2" />
-    <van-dropdown-item title="筛选" ref="item">
-    <van-cell center title="包邮">
-    </van-cell>
-    <van-cell center title="团购">
-    </van-cell>
-    <div style="padding: 5px 16px;">
-      <van-button type="danger" block  @click="onConfirm">
-        确认
-      </van-button>
-    </div>
-  </van-dropdown-item>
-</van-dropdown-menu>
-    </div>
     <div>
-  <van-field
-  readonly
-  clickable
-  label="城市"
-  :value="valuee"
-  placeholder="选择城市"
-  @click="showPicker = true"
-/>
-<van-popup v-model="showPicker" round position="top">
-  <van-picker
-    show-toolbar
-    :columns="columns"
-    @cancel="showPicker = false"
-    @confirm="onConfirm"
-  />
-</van-popup>
+      <van-dropdown-menu>
+        <van-dropdown-item v-model="value" title="区域">
+          <van-picker :columns="columns" />
+          <van-button class="my_qx">取消</van-button>
+          <van-button class="my_qd">确定</van-button>
+        </van-dropdown-item>
+        <van-dropdown-item v-model="value" title="方式"></van-dropdown-item>
+        <van-dropdown-item v-model="value" title="租金"></van-dropdown-item>
+        <van-dropdown-item title="筛选" ref="item">
+          <van-cell center title="包邮">
+            <template #right-icon>
+              <van-switch v-model="switch1" size="24" active-color="#ee0a24" />
+            </template>
+          </van-cell>
+          <van-cell center title="团购">
+            <template #right-icon>
+              <van-switch v-model="switch2" size="24" active-color="#ee0a24" />
+            </template>
+          </van-cell>
+          <div style="padding: 5px 16px">
+            <van-button type="danger" block round @click="onConfirm">
+              确认
+            </van-button>
+          </div>
+        </van-dropdown-item>
+      </van-dropdown-menu>
     </div>
 
     <!-- 商品列 -->
@@ -72,45 +58,53 @@
 </template>
 
 <script>
+import { getSubway } from '@/api'
 export default {
-  data () {
+  data() {
     return {
       values: '',
-      valuee: '',
       value: 0,
-      showPicker: false,
-      columns: [],
       switch1: false,
       switch2: false,
-      option: [
-        { text: '区域', value: 0 },
-        { text: '新款商品', value: 1 },
-        { text: '活动商品', value: 2 }
-      ],
-      option1: [
-        { text: '方式', value: 0 },
-        { text: '新款商品', value: 1 },
-        { text: '活动商品', value: 2 }
-      ],
-      option2: [
-        { text: '租金', value: 0 },
-        { text: '新款商品', value: 1 },
-        { text: '活动商品', value: 2 }
+      columns: [
+        {
+          text: '区域',
+          children: [
+            {
+              text: '杭州',
+              children: [{ text: '西湖区' }, { text: '余杭区' }]
+            },
+            {
+              text: '温州',
+              children: [{ text: '鹿城区' }, { text: '瓯海区' }]
+            }
+          ]
+        },
+        {
+          text: '地铁',
+          children: [
+            {
+              text: '福州',
+              children: [{ text: '鼓楼区' }, { text: '台江区' }]
+            },
+            {
+              text: '厦门',
+              children: [{ text: '思明区' }, { text: '海沧区' }]
+            }
+          ]
+        }
       ]
-
     }
   },
   methods: {
-    onSearch () {},
-    onSearchRight () {},
-    showPopup () {
-      this.show = true
-    },
-    onConfirm (value) {
-      this.value = value
-      this.showPicker = false
-      this.$refs.item.toggle()
+    onConfirm() {},
+    async getSubwayList() {
+      const res = await getSubway()
+      console.log(res)
     }
+  },
+  created() {
+    this.getSubwayList()
   }
 }
 </script>
@@ -134,5 +128,11 @@ export default {
 .van-popup {
   height: 300px;
 }
-
+.my_qx {
+  width: 156px;
+}
+.my_qd {
+  width: 313px;
+  background-color: #21b97a;
+}
 </style>

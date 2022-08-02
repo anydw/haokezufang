@@ -10,7 +10,7 @@
 
     <!-- 城市列表 -->
     <van-index-bar :index-list="indexList" highlight-color="#fb6463">
-      <van-index-anchor van-index-anchor index="1">当前城市</van-index-anchor>
+      <van-index-anchor van-index-anchor index="#">当前城市</van-index-anchor>
       <van-cell title="文本" />
       <van-index-anchor index="2">热门城市</van-index-anchor>
       <van-cell
@@ -33,7 +33,9 @@ import { areaListApi, hotListApi } from '@/api'
 export default {
   data () {
     return {
-      indexList: [],
+      indexList: [
+        '#', '热', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+      ],
       areaList: [],
       hotList: []
     }
@@ -41,7 +43,7 @@ export default {
   methods: {
     // 返回上级home
     onClickLeft () {
-      this.$router.push('/layout/home')
+      this.$router.back()
     },
     // 获得城市列表
     async getAreaListApi () {

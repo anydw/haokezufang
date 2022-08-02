@@ -1,23 +1,61 @@
 <template>
   <div class="my_dhz">
-    <div>
-      <img src="http://liufusong.top:8080/img/profile/bg.png" alt="" />
-    </div>
-    <div class="my_bc">
-      <div class="my_bgd">
-        <img src="http://liufusong.top:8080/img/profile/avatar.png" alt="" />
+      <!-- 已登录 -->
+    <div v-if="isshow">
+      <div >
+        <!-- 背景图 -->
+        <div>
+          <img src="http://liufusong.top:8080/img/avatar.png" alt="" />
+        </div>
+        <!-- 头像 -->
+        <div class="my_bc">
+          <div class="my_bgd">
+            <img
+              src="http://liufusong.top:8080/img/profile/avatar.png"
+              alt=""
+            />
+          </div>
+          <span class="dier">好客_845296</span>
+          <van-button type="primary" size="small" class="loginins"
+           @click="quit">退出</van-button
+          >
+        <div class="my_means" @click="changeUser"><h5>编辑个人资料<i><van-icon name="arrow" /></i></h5></div>
+        </div>
       </div>
-      <p>游客</p>
-      <van-button type="primary" size="small" class="loginin" to="/login"
-        >去登录</van-button
-      >
     </div>
-    <div class="dibu">
-      <div class="my_fg">
+      <!-- 未登录 -->
+    <div v-else>
+      <!-- 背景图 -->
+      <div>
+        <img src="http://liufusong.top:8080/img/profile/bg.png" alt="" />
+      </div>
+      <!-- 头像 -->
+      <div class="my_bc">
+        <div class="my_bgd">
+          <img src="http://liufusong.top:8080/img/profile/avatar.png" alt="" />
+        </div>
+        <p>游客</p>
+        <van-button type="primary" size="small" class="loginin" to="/login"
+          >去登录</van-button
+        >
+      </div>
+    </div>
+    <!-- 底部点击模块 -->
+    <div class="dibu" >
+      <div class="my_fg" @click="shoucangUp" v-if="!isshow">
         <van-icon name="star-o" />
         <p>我的收藏</p>
       </div>
-      <div class="my_fg">
+      <div class="my_fg" @click="shoucangList" v-else>
+        <van-icon name="star-o" />
+        <p>我的收藏</p>
+      </div>
+
+      <div class="my_fg" @click="shoucangUp" v-if="!isshow">
+        <van-icon name="wap-home-o" />
+        <p>我的出租</p>
+      </div>
+      <div class="my_fg" @click="chuzuList" v-else>
         <van-icon name="wap-home-o" />
         <p>我的出租</p>
       </div>
@@ -40,9 +78,35 @@
     </div>
   </div>
 </template>
-
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      user: ''
+    }
+  },
+  computed: {
+    isshow () {
+      return !!this.$store.state.user
+    }
+  },
+  methods: {
+    shoucangUp () {
+      this.$router.push('/login')
+    },
+    // 登出
+    quit () {
+      this.$store.commit('STE_TOKEN', '')
+    },
+    shoucangList () {
+      this.$router.push('/favorate')
+    },
+    changeUser () {},
+    chuzuList () {
+      this.$router.push('/rent')
+    }
+  }
+}
 </script>
 
 <style scoped lang="less">
@@ -61,6 +125,7 @@ img {
   .my_fg {
     width: 154px;
     height: 117px;
+    display: block;
     p {
       text-align: center;
       line-height: 20px;
@@ -94,6 +159,14 @@ img {
     top: 170px;
     font-size: 14px;
   }
+  .dier {
+    margin-left: 160px;
+    line-height: 120px;
+    font-size: 14px;
+  }
+  .my_means{
+    margin-left: 160px;
+  }
 }
 .my_bgd {
   position: fixed;
@@ -110,5 +183,12 @@ img {
   top: 230px;
   width: 80px;
   border-radius: 5px;
+}
+.loginins{
+  position: fixed;
+  left: 210px;
+  top: 220px;
+  width: 50px;
+  border-radius: 20px;
 }
 </style>

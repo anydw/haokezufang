@@ -8,8 +8,8 @@ import 'vant/lib/index.css'
 import '@/assets/iconfont/iconfont.css'
 Vue.use(Vant)
 // 测试接口用
-// import {loginApi} from "@/api"
-// console.log(loginApi());
+// import {getSubway} from "@/api"
+// console.log(getSubway())
 
 Vue.config.productionTip = false
 

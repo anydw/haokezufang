@@ -42,7 +42,15 @@ const routes = [
       },
       {
         path: '/login',
-        component: () => import('@/views/My/login')
+        component: () => import('@/views/login')
+      },
+      {
+        path: '/favorate',
+        component: () => import('@/views/favorate')
+      },
+      {
+        path: '/favorate',
+        component: () => import('@/views/rent')
       }
     ]
   }

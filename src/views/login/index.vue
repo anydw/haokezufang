@@ -32,12 +32,18 @@ export default {
       password: ''
     }
   },
+  mounted () {
+    this.onSubmit()
+  },
   methods: {
     async onSubmit () {
+      // 把用户名和密码写成一个对象
       const data = { username: this.username, password: this.password }
       try {
-        const res = await loginApi(data)
+        const res = await loginApi(data) // 在接口函数中返回这个对象
         console.log(res)
+        this.$store.commit('STE_TOKEN', res.data.body.token) // 把token存入vuex
+        this.$router.push('layout/my')
         this.$toast.success('登录成功')
       } catch (error) {
         console.log(error)
